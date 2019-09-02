@@ -1,6 +1,11 @@
 def autoload_permission_checks():
     from django.conf import settings
-    from django.utils.importlib import import_module
+    # Workaround for Django 1.8 
+    try:
+        from django.utils.importlib import import_module
+    except ImportError:
+        from importlib import import_module
+
     from django.utils.module_loading import module_has_submodule
     
     for app in settings.INSTALLED_APPS:
